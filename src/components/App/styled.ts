@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import { LayoutProps, FlexboxProps, layout, flexbox, compose } from 'styled-system';
 import { Properties as CSSProperties } from 'csstype';
 
 const logoKeyframes = keyframes`
@@ -17,8 +18,9 @@ interface StyledHeaderProps {
 }
 
 export const Styled = {
-    App: styled.div`
+    App: styled('div')<LayoutProps & FlexboxProps>`
         text-align: center;
+        ${compose(layout, flexbox)}
     `,
     Header: styled.header<StyledHeaderProps>`
         background-color: ${({ theme }) => {
@@ -36,6 +38,7 @@ export const Styled = {
         display: flex;
         justify-content: center;
         font-size: calc(10px + 2vmin);
+        width: 100%;
     `,
     Logo: styled.img`
         height: 40vmin;

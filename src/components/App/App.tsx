@@ -28,7 +28,7 @@ export const App: React.FC = () => {
 
     return (
         <ThemeProvider theme={currentTheme}>
-            <Styled.App>
+            <Styled.App display="flex" flexDirection="column" alignItems="center">
                 <GlobalStyle />
                 <Styled.Header flexDirection="column" alignItems="center" isDark={isDark}>
                     <Styled.Logo src={logo} alt="logo" />
