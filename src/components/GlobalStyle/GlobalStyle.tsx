@@ -8,6 +8,11 @@ export const GlobalStyle = createGlobalStyle`
     sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    color: ${({ theme }) => {
+        return theme.mode === 'light'
+            ? theme.styles.colors.neutral[800]
+            : theme.styles.colors.neutral[0];
+    }};
   }
 
   code {

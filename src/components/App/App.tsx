@@ -1,88 +1,56 @@
 import React, { useState } from 'react';
-import styled, { keyframes } from 'styled-components';
-import { Properties as CSSProperties } from 'csstype';
-
+import styled, { DefaultTheme, ThemeProvider } from 'styled-components';
 import { GlobalStyle } from '../GlobalStyle';
+import { Styled } from './styled';
+import { theme } from './theme';
 import logo from './logo.svg';
 
-const logoKeyframes = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+const StyledButton = styled.button`
+    background-color: ${({ theme }) =>
+        theme.mode === 'light'
+            ? theme.styles.colors.secondary[600]
+            : theme.styles.colors.primary[500]};
+    border: none;
+    border-radius: 10px;
+    font-size: calc(5px + 2vmin);
+    height: 40px;
+    margin: 10px;
+    box-shadow: 3px 3px 5px 0px rgba(53, 149, 175, 0.6);
 `;
-
-interface StyledHeaderProps {
-    alignItems: CSSProperties['alignItems'];
-    flexDirection: 'column' | 'row';
-    isDark: boolean;
-}
-
-const Styled = {
-    App: styled.div`
-        text-align: center;
-    `,
-    Header: styled.header<StyledHeaderProps>`
-        background-color: ${({ isDark }) => {
-            return isDark ? '#282c34' : '#ffffff';
-        }};
-        flex-direction: ${({ flexDirection }) => {
-            return flexDirection;
-        }};
-        align-items: ${(props) => {
-            return props.alignItems;
-        }};
-        min-height: 100vh;
-        display: flex;
-        justify-content: center;
-        font-size: calc(10px + 2vmin);
-        color: white;
-    `,
-    Logo: styled.img`
-        height: 40vmin;
-        pointer-events: none;
-        @media (prefers-reduced-motion: no-preference) {
-            animation: ${logoKeyframes} infinite 20s linear;
-        }
-    `,
-    Link: styled.a`
-        color: #61dafb;
-    `,
-    Button: styled.button`
-        background-color: #61dafb;
-        border: none;
-        border-radius: 10px;
-        font-size: calc(5px + 2vmin);
-        height: 25px;
-        margin: 10px;
-        box-shadow: 3px 3px 5px 0px rgba(53, 149, 175, 0.6);
-    `,
-};
 
 export const App: React.FC = () => {
     const [isDark, setIsDark] = useState(false);
 
+    const currentTheme: DefaultTheme = {
+        ...theme,
+        mode: isDark ? 'dark' : 'light',
+    };
+
     return (
-        <Styled.App>
-            <GlobalStyle />
-            <Styled.Header flexDirection="column" alignItems="center" isDark={isDark}>
-                <Styled.Logo src={logo} alt="logo" />
-                <p>
-                    Edit <code>src/App.tsx</code> and save to reload.
-                </p>
-                <Styled.Link href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-                    Learn React
-                </Styled.Link>
-                <Styled.Button
-                    onClick={() => {
-                        setIsDark(!isDark);
-                    }}
-                >
-                    Change theme
-                </Styled.Button>
-            </Styled.Header>
-        </Styled.App>
+        <ThemeProvider theme={currentTheme}>
+            <Styled.App>
+                <GlobalStyle />
+                <Styled.Header flexDirection="column" alignItems="center" isDark={isDark}>
+                    <Styled.Logo src={logo} alt="logo" />
+                    <p>
+                        Edit <code>src/App.tsx</code> and save to reload.
+                    </p>
+                    <Styled.Link
+                        href="https://reactjs.org"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Learn React
+                    </Styled.Link>
+                    <StyledButton
+                        onClick={() => {
+                            setIsDark(!isDark);
+                        }}
+                    >
+                        Change theme
+                    </StyledButton>
+                </Styled.Header>
+            </Styled.App>
+        </ThemeProvider>
     );
 };
