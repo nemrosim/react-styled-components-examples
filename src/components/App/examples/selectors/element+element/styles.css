@@ -1,0 +1,17 @@
+.main {
+      background-color: red;
+      width: 100%;
+      height: 50px;
+}
+
+.secondary {
+      background-color: green;
+      width: 100%;
+      height: 50px;
+}
+
+/*Set background color of anotherClass element only
+ if it is placed after myClass element  */
+.main + .secondary {
+      background-color: yellow;
+}
