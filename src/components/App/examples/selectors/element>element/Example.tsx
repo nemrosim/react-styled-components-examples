@@ -8,15 +8,10 @@ export const Main = styled.div`
     height: 50px;
 `;
 
-/**
- *  Styles will be applied only if element
- *  is placed immediately after "Div" component.
- *  Styles will be applied only to first child!
- */
 export const Secondary = styled(Main)`
-    background-color: green;
-    ${Main} + & {
-        background-color: yellow;
+    background-color: yellow;
+    ${Main} > & {
+        background-color: green;
     }
 `;
 
@@ -28,8 +23,9 @@ export const Styled = {
 export const PlainCSS: React.FC = () => {
     return (
         <>
-            <div className="secondary" />
-            <div className="main" />
+            <div className="main">
+                <div className="secondary" />
+            </div>
             <div className="secondary" />
         </>
     );
@@ -38,8 +34,9 @@ export const PlainCSS: React.FC = () => {
 export const StyledComponents: React.FC = () => {
     return (
         <>
-            <Styled.Secondary />
-            <Styled.Main />
+            <Styled.Main>
+                <Styled.Secondary />
+            </Styled.Main>
             <Styled.Secondary />
         </>
     );
