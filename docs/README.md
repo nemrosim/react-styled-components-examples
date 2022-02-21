@@ -1,5 +1,6 @@
 ![](result.gif)
 # Styled-Components with examples. Quick start guide
+Examples of using styled-components with `create-react-app` and `next.js`
 
 ### What will be covered:
 - Prerequisites;
